@@ -4,14 +4,37 @@ import {
   Text,
   View
 } from 'react-native'
+import firebase from 'react-native-firebase'
 
 export default class App extends Component<{}> {
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      posts: []
+    }
+  }
+
+  componentDidMount () {
+    let obj = firebase.database().ref('/')
+
+    obj.on('value', (Snapshot) => {
+      const buffer = []
+      Snapshot.forEach((v) => {
+        buffer.push(v)
+      })
+      this.setState({posts: buffer})
+    })
+  }
+
   render () {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
+        {
+          this.state.posts.map((v) => {
+            return <Text key={v._value.id}>{v._value.first_name}</Text>
+          })
+        }
       </View>
     )
   }
@@ -23,10 +46,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10
   }
 })
