@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native'
 import firebase from 'react-native-firebase'
+import PostField from './components/PostField'
+import Card from './components/Card'
 
 export default class App extends Component<{}> {
 
@@ -30,11 +33,16 @@ export default class App extends Component<{}> {
   render () {
     return (
       <View style={styles.container}>
-        {
-          this.state.posts.map((v) => {
-            return <Text key={v._value.id}>{v._value.first_name}</Text>
-          })
-        }
+
+        <ScrollView style={{marginBottom: 20}}>
+          <PostField/>
+          {
+            this.state.posts.map((post) => {
+              return <Card key={post._value.id} username={post._value.first_name}/>
+            })
+          }
+        </ScrollView>
+
       </View>
     )
   }
@@ -43,8 +51,6 @@ export default class App extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#E9EBEE'
   }
 })
