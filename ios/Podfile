@@ -9,7 +9,8 @@ target 'X' do
 
   pod 'Firebase/Core'
   pod 'Firebase/Database'
-
+  pod 'GoogleSignIn'
+  
   target 'XTests' do
     inherit! :search_paths
     # Pods for testing
@@ -29,3 +30,8 @@ target 'X-tvOS' do
   end
 
 end
+
+# Temporary workaround for https://github.com/invertase/react-native-firebase/issues/395
+# post_install do
+#  `rm -rf Pods/leveldb-library/port/win`
+# end

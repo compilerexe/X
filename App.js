@@ -6,6 +6,7 @@ import {
   ScrollView
 } from 'react-native'
 import firebase from 'react-native-firebase'
+import Login from './components/Login'
 import PostField from './components/PostField'
 import Card from './components/Card'
 
@@ -34,14 +35,16 @@ export default class App extends Component<{}> {
     return (
       <View style={styles.container}>
 
-        <ScrollView style={{marginBottom: 20}}>
-          <PostField/>
-          {
-            this.state.posts.map((post) => {
-              return <Card key={post._value.id} username={post._value.first_name}/>
-            })
-          }
-        </ScrollView>
+        <Login/>
+
+        {/*<ScrollView style={{marginBottom: 20}}>*/}
+          {/*<PostField/>*/}
+          {/*{*/}
+            {/*this.state.posts.map((post) => {*/}
+              {/*return <Card key={post._value.id} username={post._value.first_name}/>*/}
+            {/*})*/}
+          {/*}*/}
+        {/*</ScrollView>*/}
 
       </View>
     )
